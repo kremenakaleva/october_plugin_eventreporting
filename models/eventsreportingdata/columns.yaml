@@ -1,0 +1,40 @@
+columns:
+    id:
+        label: id
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    name:
+        label: name
+        type: text
+    surname:
+        label: surname
+        type: text
+    affiliation:
+        label: affiliation
+        type: text
+    email:
+        label: email
+        type: text
+    event_name:
+        label: event_name
+        type: text
+    event_date:
+        label: event_date
+        type: text
+    organiser:
+        label: organiser
+        type: text
+    project_organised:
+        label: project_organised
+        type: text
+    venue:
+        label: venue
+        type: text
+    online_hybrid_onsite:
+        label: online_hybrid_onsite
+        type: text
+    website:
+        label: website
+        type: text

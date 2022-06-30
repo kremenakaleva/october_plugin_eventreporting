@@ -1,0 +1,11 @@
+list: $/pensoft/eventreporting/models/eventsreportingdata/columns.yaml
+modelClass: Pensoft\EventReporting\Models\EventsreportingData
+title: EventsReportingData
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

@@ -1,0 +1,157 @@
+<form method="post" data-request="{{__SELF__}}::onSubmit" data-request-files data-request-flash  enctype="multipart/form-data">
+    <input type="hidden" name="_handler" value="onSubmit">
+    {{ form_token() }}
+    {{ form_sessionKey() }}
+    <div class="row ui form" id="mails">
+        <div class="col-xs">
+
+            <div class="row">
+                <div class="col-xs">
+                    <div class="formErrors"></div>
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Name</div>
+                            <div class="field">
+                                <input type="text" name="name" class="DPText" size="2" value="{{user.name}}">
+                            </div>
+
+                </div>
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Surname</div>
+                            <div class="field">
+                                <input type="text" name="surname" class="DPText" size="2" value="{{user.surname}}">
+                            </div>
+
+                </div>
+            </div>
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Affiliation</div>
+                            <div class="field">
+                                <input type="text" name="affiliation" value="{{partner}}" class="DPText" size="2">
+                            </div>
+
+                </div>
+                {{user.partner}}
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">E-mail</div>
+                            <div class="field">
+                                <input type="text" name="email" class="DPText" size="2" value="{{user.username}}">
+                            </div>
+
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Event name</div>
+                            <div class="field">
+                                <input type="text" name="event_name" value="" class="DPText" size="2">
+                            </div>
+
+                </div>
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Event date</div>
+                            <div class="field">
+                                <input type="text" name="event_date" value="" class="DPText" size="2" id="datepicker">
+                            </div>
+                    <script>
+                        $( function() {
+                            $( "#datepicker" ).datepicker({
+                                dateFormat: 'dd-mm-yy',
+                                minDate: 0,
+                                changeMonth: true,
+                                changeYear: true,
+                                dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ],
+                            });
+                        } );
+                    </script>
+
+                </div>
+            </div>
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">Organiser</div>
+                            <div class="field">
+                                <input type="text" name="organiser" value="" class="DPText" size="2">
+                            </div>
+
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+
+                            <div class="inputLabel">{{project_name}} organised or relevant</div>
+                            <div class="field">
+                                <select name="project_organised">
+                                    <option value="">-- Choose --</option>
+                                    <option value="1">{{project_name}} organised</option>
+                                    <option value="2">{{project_name}} relevant</option>
+                                </select>
+                            </div>
+
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+                            <div class="inputLabel">Venue</div>
+                            <div class="field">
+                                <input type="text" name="venue" value="" class="DPText" size="2">
+                            </div>
+
+                </div>
+                <div class="col-xs-12 col-md-6">
+                            <div class="inputLabel">Online, hybrid or on-site participation</div>
+                            <div class="field">
+                                <select name="online_hybrid_onsite">
+                                    <option value="">-- Choose --</option>
+                                    <option value="1">Online</option>
+                                    <option value="2">Hybrid</option>
+                                    <option value="3">On Site</option>
+                                </select>
+                            </div>
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="col-xs-12 col-md-6">
+                            <div class="inputLabel">Link to event website</div>
+                            <div class="field">
+                                <input type="text" name="website" value="" class="DPText" size="2">
+                            </div>
+
+                </div>
+
+            </div>
+
+            <div class="row box">
+                <div class="col-xs">
+
+
+
+                    <div class="row center-xs">
+                        <div class="col-xs-12 col-sm-3">
+
+                            <input type="submit" name="tAction" value="Submit" class="btn btn-primary">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% framework extras %}
+{% scripts %}

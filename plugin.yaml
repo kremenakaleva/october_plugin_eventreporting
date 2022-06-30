@@ -1,0 +1,11 @@
+plugin:
+    name: 'pensoft.eventreporting::lang.plugin.name'
+    description: 'pensoft.eventreporting::lang.plugin.description'
+    author: Pensoft
+    icon: oc-icon-calendar-o
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'Event Reporting'
+        url: pensoft/eventreporting/eventsreportingdata
+        icon: icon-calendar-o
