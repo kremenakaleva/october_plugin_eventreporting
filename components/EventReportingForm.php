@@ -36,7 +36,7 @@ class EventReportingForm extends ComponentBase
         $user = Auth::getUser();
         if($user){
             $theme = Theme::getActiveTheme();
-            $partner = Partners::find($user->partner_id)->first();
+            $partner = Partners::where('id', $user->partner_id)->first();
             $this->page['user'] = $user;
             $this->page['project_name'] = $theme->site_name;
             $this->page['partner'] = $partner->instituion;
