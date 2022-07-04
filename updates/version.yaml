@@ -8,3 +8,8 @@
     - builder_table_update_pensoft_eventreporting_data.php
 1.0.4:
     - 'Related partner name fix'
+1.0.5:
+    - 'Updated table pensoft_eventreporting_data'
+1.0.6:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_3.php
