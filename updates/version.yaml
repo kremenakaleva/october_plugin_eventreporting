@@ -12,10 +12,11 @@
     - 'Updated table pensoft_eventreporting_data'
 1.0.6:
     - 'Updated table pensoft_eventreporting_data'
-    - builder_table_update_pensoft_eventreporting_data_3.php
 1.0.7:
     - 'Updated table pensoft_eventreporting_data'
     - builder_table_update_pensoft_eventreporting_data_4.php
 1.0.8:
     - 'Updated table pensoft_eventreporting_data'
     - builder_table_update_pensoft_eventreporting_data_5.php
+1.0.9:
+    - 'Fix'
