@@ -1323,7 +1323,8 @@ a.ui-button:active,
     border-top: none;
 }
 
-#datepicker
+#datepicker_start,
+#datepicker_end
 {
     background: url('../images/calendar.png') center no-repeat;
     background-size: 33px;

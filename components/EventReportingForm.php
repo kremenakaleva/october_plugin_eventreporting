@@ -59,12 +59,12 @@ class EventReportingForm extends ComponentBase
                 'affiliation' => 'required',
                 'email' => 'required|email',
                 'event_name' => 'required',
-                'event_date' => 'required',
+                'event_start' => 'required',
+                'event_end' => 'required',
                 'organiser' => 'required',
                 'project_organised' => 'required',
                 'venue' => 'required',
                 'online_hybrid_onsite' => 'required',
-                'website' => 'required',
             ]
         );
 
@@ -72,8 +72,10 @@ class EventReportingForm extends ComponentBase
             throw new ValidationException($validator);
         }
 
-        $date = \Input::get('event_date');
-        $date = str_replace('/', '-', $date);
+        $dateStart = \Input::get('event_start');
+        $dateStart = str_replace('/', '-', $dateStart);
+        $dateEnd = \Input::get('event_end');
+        $dateEnd = str_replace('/', '-', $dateEnd);
 
         $name = \Input::get('name');
         $surname = \Input::get('surname');
@@ -81,7 +83,9 @@ class EventReportingForm extends ComponentBase
         $email = \Input::get('email');
         $event_name = \Input::get('event_name');
         $event_slug = str_slug($event_name , "-");
-        $event_date = Carbon::parse($date)->format('Y-m-d H:i:s');
+        $event_date = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
+        $event_start = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
+        $event_end = Carbon::parse($dateEnd)->format('Y-m-d H:i:s');
         $organiser = \Input::get('organiser');
         $project_organised = (int)\Input::get('project_organised');
         $venue = \Input::get('venue');
@@ -96,6 +100,8 @@ class EventReportingForm extends ComponentBase
         $eventReport->event_name = $event_name;
         $eventReport->slug = $event_slug;
         $eventReport->event_date = $event_date;
+        $eventReport->event_start = $event_start;
+        $eventReport->event_end = $event_end;
         $eventReport->organiser = $organiser;
         $eventReport->project_organised = $project_organised;
         $eventReport->venue = $venue;
@@ -103,15 +109,15 @@ class EventReportingForm extends ComponentBase
         $eventReport->website = $website;
         $eventReport->save();
 
-        $event_date_to_compare = Carbon::parse($date)->format('Y-m-d');
+        $event_date_to_compare = Carbon::parse($dateStart)->format('Y-m-d');
 //        ----
-        $entrySlug = Entry::where('slug', $event_slug)->whereDate('start', '=', $event_date_to_compare)->first();
+        $entrySlug = Entry::where('title', $event_slug)->whereDate('start', '=', $event_date_to_compare)->first();
         if(!$entrySlug){
             $entry = new Entry();
             $entry->title = $event_name;
             $entry->slug = $event_slug;
-            $entry->start = $event_date;
-            $entry->end = $event_date;
+            $entry->start = $event_start;
+            $entry->end = $event_end;
             $entry->all_day = true;
             $entry->identifier = $project_organised;
             $entry->url = $website;
