@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Flash;
 use Pensoft\Calendar\Models\Entry;
+use Pensoft\EventReporting\Models\EventsreportingAttendants;
 use Pensoft\EventReporting\Models\EventsreportingData;
 use Pensoft\Partners\Models\Partners;
 
@@ -54,10 +55,7 @@ class EventReportingForm extends ComponentBase
         }
         $validator = Validator::make(
             $form = \Input::all(), [
-                'name' => 'required',
-                'surname' => 'required',
-                'affiliation' => 'required',
-                'email' => 'required|email',
+                'user_id' => 'required',
                 'event_name' => 'required',
                 'event_start' => 'required',
                 'event_end' => 'required',
@@ -71,21 +69,18 @@ class EventReportingForm extends ComponentBase
         if($validator->fails()){
             throw new ValidationException($validator);
         }
-
+        
         $dateStart = \Input::get('event_start');
         $dateStart = str_replace('/', '-', $dateStart);
         $dateEnd = \Input::get('event_end');
         $dateEnd = str_replace('/', '-', $dateEnd);
 
-        $name = \Input::get('name');
-        $surname = \Input::get('surname');
-        $affiliation = \Input::get('affiliation');
-        $email = \Input::get('email');
+        $user_id = \Input::get('user_id');
         $event_name = \Input::get('event_name');
         $event_slug = str_slug($event_name , "-");
-        $event_date = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
-        $event_start = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
-        $event_end = Carbon::parse($dateEnd)->format('Y-m-d H:i:s');
+        $event_date = Carbon::parse($dateStart)->addHours(1)->format('Y-m-d H:i:s');
+        $event_start = Carbon::parse($dateStart)->addHours(1)->format('Y-m-d H:i:s');
+        $event_end = Carbon::parse($dateEnd)->addHours(2)->format('Y-m-d H:i:s');
         $organiser = \Input::get('organiser');
         $project_organised = (int)\Input::get('project_organised');
         $venue = \Input::get('venue');
@@ -93,10 +88,6 @@ class EventReportingForm extends ComponentBase
         $website = \Input::get('website');
 
         $eventReport = new EventsreportingData();
-        $eventReport->name = $name;
-        $eventReport->surname = $surname;
-        $eventReport->affiliation = $affiliation;
-        $eventReport->email = $email;
         $eventReport->event_name = $event_name;
         $eventReport->slug = $event_slug;
         $eventReport->event_date = $event_date;
@@ -109,6 +100,11 @@ class EventReportingForm extends ComponentBase
         $eventReport->website = $website;
         $eventReport->save();
 
+        $eventAttentant = new EventsreportingAttendants();
+        $eventAttentant->event_id = $eventReport->id;
+        $eventAttentant->user_id = $user_id;
+        $eventAttentant->save();
+
         $event_date_to_compare = Carbon::parse($dateStart)->format('Y-m-d');
 //        ----
         $entrySlug = Entry::where('title', $event_slug)->whereDate('start', '=', $event_date_to_compare)->first();
@@ -118,7 +114,7 @@ class EventReportingForm extends ComponentBase
             $entry->slug = $event_slug;
             $entry->start = $event_start;
             $entry->end = $event_end;
-            $entry->all_day = true;
+            $entry->all_day = false;
             $entry->identifier = $project_organised;
             $entry->url = $website;
             $entry->place = $venue;
@@ -128,8 +124,7 @@ class EventReportingForm extends ComponentBase
             $entry->save();
         }
 
-
         Flash::success('Thank you!');
-        return \Redirect::to('/event-attendance-report-success');
+        return \Redirect::to('/event-attendance-planner-success');
     }
 }

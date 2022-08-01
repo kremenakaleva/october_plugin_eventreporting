@@ -11,51 +11,14 @@
                 </div>
             </div>
 
-            <div class="row box">
-                <div class="col-xs-12 col-md-6">
-
-                            <div class="inputLabel">Name</div>
-                            <div class="field">
-                                <input type="text" name="name" class="DPText" size="2" value="{{user.name}}">
-                            </div>
-
-                </div>
-                <div class="col-xs-12 col-md-6">
-
-                            <div class="inputLabel">Surname</div>
-                            <div class="field">
-                                <input type="text" name="surname" class="DPText" size="2" value="{{user.surname}}">
-                            </div>
-
-                </div>
-            </div>
-            <div class="row box">
-                <div class="col-xs-12 col-md-6">
-
-                            <div class="inputLabel">Affiliation</div>
-                            <div class="field">
-                                <input type="text" name="affiliation" value="{{partner}}" class="DPText" size="2">
-                            </div>
-
-                </div>
-                <div class="col-xs-12 col-md-6">
-
-                            <div class="inputLabel">E-mail</div>
-                            <div class="field">
-                                <input type="text" name="email" class="DPText" size="2" value="{{user.username}}">
-                            </div>
-
-                </div>
-            </div>
+            <input type="hidden" name="user_id" class="DPText" size="2" value="{{user.id}}">
 
             <div class="row box">
                 <div class="col-xs-12 col-md-12">
-
-                            <div class="inputLabel">Event name</div>
-                            <div class="field">
-                                <input type="text" name="event_name" value="" class="DPText">
-                            </div>
-
+                    <div class="inputLabel">Event name</div>
+                    <div class="field">
+                        <input type="text" name="event_name" value="" class="DPText">
+                    </div>
                 </div>
             </div>
 
@@ -145,8 +108,6 @@
 
             <div class="row box">
                 <div class="col-xs">
-
-
 
                     <div class="row center-xs">
                         <div class="col-xs-12 col-sm-3">

@@ -15,6 +15,8 @@ class Plugin extends PluginBase
     {
         return [
             'Pensoft\EventReporting\Components\EventReportingForm' => 'EventReportingForm',
+            'Pensoft\EventReporting\Components\EventAttendanceForm' => 'EventAttendanceForm',
+            'Pensoft\EventReporting\Components\Calendar' => 'Calendar',
         ];
     }
 
