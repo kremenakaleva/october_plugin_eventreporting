@@ -26,3 +26,5 @@
 1.0.11:
     - 'Created table pensoft_eventreporting_attendants'
     - builder_table_create_pensoft_eventreporting_attendants.php
+1.0.12:
+    - 'Add attendance'

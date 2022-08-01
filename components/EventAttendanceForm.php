@@ -5,6 +5,7 @@ use Cms\Classes\ComponentBase;
 use Cms\Classes\Theme;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use October\Rain\Database\Model;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Flash;
 use Pensoft\EventReporting\Models\EventsreportingAttendants;
@@ -30,6 +31,7 @@ class EventAttendanceForm extends ComponentBase
 
     public function onRun(){
         $this->addCss('assets/css/style.css');
+        $this->page['id'] = (int)$this->param('id');
 
         $user = Auth::getUser();
         if($user){
@@ -62,12 +64,19 @@ class EventAttendanceForm extends ComponentBase
         $user_id = \Input::get('user_id');
         $event_id = \Input::get('event_id');
 
-        $eventAttendance = new EventsreportingAttendants();
-        $eventAttendance->user_id = $user_id;
-        $eventAttendance->event_id = $event_id;
-        $eventAttendance->save();
+        $exist = EventsreportingAttendants::where('user_id', $user_id)->where('event_id', $event_id)->first();
+        if(!$exist){
+            $eventAttendance = new EventsreportingAttendants();
+            $eventAttendance->user_id = $user_id;
+            $eventAttendance->event_id = $event_id;
+            $eventAttendance->save();
 
-        Flash::success('Thank you!');
-        return \Redirect::to('/event-attendance-planner-success');
+            Flash::success('Thank you!');
+            return \Redirect::to('/event-attendance-planner-success');
+        }else{
+            Flash::success('Thank you!');
+            return \Redirect::to('/planned-events');
+        }
+
     }
 }
