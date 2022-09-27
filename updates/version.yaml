@@ -30,3 +30,5 @@
     - 'Add attendance'
 1.0.13:
     - 'Add attendance skip past events'
+1.0.14:
+    - 'Edit/create backend'
