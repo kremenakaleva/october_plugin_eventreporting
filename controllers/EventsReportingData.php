@@ -5,8 +5,19 @@ use BackendMenu;
 
 class EventsReportingData extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController'    ];
+    public $implement = [
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
+    ];
 
+    /**
+     * @var string formConfig file
+     */
+    public $formConfig = 'config_form.yaml';
+
+    /**
+     * @var string listConfig file
+     */
     public $listConfig = 'config_list.yaml';
 
     public function __construct()
