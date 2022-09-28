@@ -63,13 +63,14 @@ class EventReportingForm extends ComponentBase
                 'project_organised' => 'required',
                 'venue' => 'required',
                 'online_hybrid_onsite' => 'required',
+                'is_internal' => 'required',
             ]
         );
 
         if($validator->fails()){
             throw new ValidationException($validator);
         }
-        
+
         $dateStart = \Input::get('event_start');
         $dateStart = str_replace('/', '-', $dateStart);
         $dateEnd = \Input::get('event_end');
@@ -86,6 +87,7 @@ class EventReportingForm extends ComponentBase
         $venue = \Input::get('venue');
         $online_hybrid_onsite = (int)\Input::get('online_hybrid_onsite');
         $website = \Input::get('website');
+        $is_internal = \Input::get('is_internal');
 
         $eventReport = new EventsreportingData();
         $eventReport->event_name = $event_name;
@@ -98,6 +100,7 @@ class EventReportingForm extends ComponentBase
         $eventReport->venue = $venue;
         $eventReport->online_hybrid_onsite = $online_hybrid_onsite;
         $eventReport->website = $website;
+        $eventReport->is_internal = $is_internal;
         $eventReport->save();
 
         $eventAttentant = new EventsreportingAttendants();
@@ -119,7 +122,7 @@ class EventReportingForm extends ComponentBase
             $entry->url = $website;
             $entry->place = $venue;
             $entry->show_on_timeline = false;
-            $entry->is_internal = false;
+            $entry->is_internal = $is_internal;
             $entry->description = '';
             $entry->save();
         }

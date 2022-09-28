@@ -30,3 +30,8 @@
     - 'Add attendance'
 1.0.13:
     - 'Add attendance skip past events'
+1.0.14:
+    - 'Edit/create backend'
+1.0.15:
+    - 'Updated table pensoft_eventreporting_data'
+    - builder_table_update_pensoft_eventreporting_data_7.php

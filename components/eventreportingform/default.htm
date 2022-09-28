@@ -15,7 +15,7 @@
 
             <div class="row box">
                 <div class="col-xs-12 col-md-12">
-                    <div class="inputLabel">Event name</div>
+                    <div class="inputLabel">Event name <span class="red">*</span></div>
                     <div class="field">
                         <input type="text" name="event_name" value="" class="DPText">
                     </div>
@@ -25,14 +25,14 @@
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">Event start date</div>
+                            <div class="inputLabel">Event start date <span class="red">*</span></div>
                             <div class="field">
                                 <input type="text" name="event_start" value="" class="DPText" size="2" id="datepicker_start">
                             </div>
 
                 </div>
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Event end date</div>
+                            <div class="inputLabel">Event end date <span class="red">*</span></div>
                             <div class="field">
                                 <input type="text" name="event_end" value="" class="DPText" size="2" id="datepicker_end">
                             </div>
@@ -53,7 +53,7 @@
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">Organiser</div>
+                            <div class="inputLabel">Organiser <span class="red">*</span></div>
                             <div class="field">
                                 <input type="text" name="organiser" value="" class="DPText" size="2">
                             </div>
@@ -62,7 +62,7 @@
 
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">{{project_name}} organised or relevant</div>
+                            <div class="inputLabel">{{project_name}} organised or relevant <span class="red">*</span></div>
                             <div class="field">
                                 <select name="project_organised">
                                     <option value="">-- Choose --</option>
@@ -76,14 +76,14 @@
 
             <div class="row box">
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Venue</div>
+                            <div class="inputLabel">Venue <span class="red">*</span></div>
                             <div class="field">
                                 <input type="text" name="venue" value="" class="DPText" size="2">
                             </div>
 
                 </div>
                 <div class="col-xs-12 col-md-6">
-                            <div class="inputLabel">Online, hybrid or on-site participation</div>
+                            <div class="inputLabel">Online, hybrid or on-site participation <span class="red">*</span></div>
                             <div class="field">
                                 <select name="online_hybrid_onsite">
                                     <option value="">-- Choose --</option>
@@ -101,6 +101,19 @@
                             <div class="field">
                                 <input type="text" name="website" value="" class="DPText" size="2">
                             </div>
+
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="inputLabel">Event visibility (Internal / Public) <span class="red">*</span> </div>
+                    <div class="field">
+                        <select name="is_internal">
+                            <option value="">-- Choose --</option>
+                            <option value="0">Public</option>
+                            <option value="1">Internal</option>
+                        </select>
+                        <small>Internal events can be viewed only by consortium members upon login to the Internal Repository.</small>
+                    </div>
 
                 </div>
 
