@@ -26,7 +26,7 @@ class EventsreportingAttendants extends Model
     ];
 
     public $belongsTo = [
-        'event' => 'Pensoft\Eventreporting\Models\EventsreportingData',
+        'event' => 'Pensoft\Calendar\Models\Entry',
         'user' => 'Rainlab\User\Models\User'
     ];
 }

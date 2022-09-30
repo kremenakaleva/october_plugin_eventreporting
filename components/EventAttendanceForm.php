@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use October\Rain\Database\Model;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Flash;
+use Pensoft\Calendar\Models\Entry;
 use Pensoft\EventReporting\Models\EventsreportingAttendants;
 use Pensoft\EventReporting\Models\EventsreportingData;
 
@@ -37,7 +38,7 @@ class EventAttendanceForm extends ComponentBase
         if($user){
             $theme = Theme::getActiveTheme();
             $this->page['user'] = $user;
-            $this->page['events'] = EventsreportingData::where('event_end', '>=', 'now()')->orderBy('created_at', 'DESC')->get();
+            $this->page['events'] = Entry::orderBy('title')->orderBy('created_at', 'DESC')->get();
         }else{
             return Redirect::to('/');
         }

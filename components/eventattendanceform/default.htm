@@ -21,7 +21,7 @@
                         <select name="event_id">
                             <option value="">-- Choose event --</option>
                             {% for event in events %}
-                                <option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.event_name}}</option>
+                                <option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.title}}</option>
                             {% endfor %}
                         </select>
                     </div>
