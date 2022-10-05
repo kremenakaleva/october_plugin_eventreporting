@@ -37,3 +37,5 @@
     - builder_table_update_pensoft_eventreporting_data_7.php
 1.0.16:
     - 'Attendant event id relation'
+1.0.17:
+    - 'Edit event, event date and time'

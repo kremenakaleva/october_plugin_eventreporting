@@ -6,6 +6,7 @@ use Cms\Classes\ComponentBase;
 use Cms\Classes\Theme;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use October\Rain\Database\Model;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Flash;
 use Pensoft\Calendar\Models\Entry;
@@ -33,6 +34,8 @@ class EventReportingForm extends ComponentBase
 
     public function onRun(){
         $this->addCss('assets/css/style.css');
+        $this->addJs('assets/js/jquery-ui-timepicker-addon.js');
+        $this->page['slug'] = $this->param('slug');
 
         $user = Auth::getUser();
         if($user){
@@ -43,6 +46,12 @@ class EventReportingForm extends ComponentBase
             $this->page['partner'] = $partner->instituion;
         }else{
             return Redirect::to('/');
+        }
+        if($this->param('slug')){
+            $event = Entry::where('christophheich_calendar_entries.slug', $this->param('slug'))
+                ->leftJoin('pensoft_eventreporting_data', 'christophheich_calendar_entries.slug', '=', 'pensoft_eventreporting_data.slug')
+                ->first();
+            $this->page['event'] = $event;
         }
 
     }
@@ -79,9 +88,9 @@ class EventReportingForm extends ComponentBase
         $user_id = \Input::get('user_id');
         $event_name = \Input::get('event_name');
         $event_slug = str_slug($event_name , "-");
-        $event_date = Carbon::parse($dateStart)->addHours(1)->format('Y-m-d H:i:s');
-        $event_start = Carbon::parse($dateStart)->addHours(1)->format('Y-m-d H:i:s');
-        $event_end = Carbon::parse($dateEnd)->addHours(2)->format('Y-m-d H:i:s');
+        $event_date = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
+        $event_start = Carbon::parse($dateStart)->format('Y-m-d H:i:s');
+        $event_end = Carbon::parse($dateEnd)->format('Y-m-d H:i:s');
         $organiser = \Input::get('organiser');
         $project_organised = (int)\Input::get('project_organised');
         $venue = \Input::get('venue');
@@ -89,7 +98,17 @@ class EventReportingForm extends ComponentBase
         $website = \Input::get('website');
         $is_internal = \Input::get('is_internal');
 
-        $eventReport = new EventsreportingData();
+        $slug = \Input::get('slug');
+        $internalEventId = \Input::get('internal_event_id');
+
+        if($slug != '' && (int)$internalEventId){
+            $eventReport = EventsreportingData::where('id', (int)$internalEventId)->first();
+            $entry = Entry::where('slug', $slug)->first();
+        }else{
+            $eventReport = new EventsreportingData();
+
+        }
+
         $eventReport->event_name = $event_name;
         $eventReport->slug = $event_slug;
         $eventReport->event_date = $event_date;
@@ -103,29 +122,38 @@ class EventReportingForm extends ComponentBase
         $eventReport->is_internal = $is_internal;
         $eventReport->save();
 
-        $eventAttentant = new EventsreportingAttendants();
-        $eventAttentant->event_id = $eventReport->id;
-        $eventAttentant->user_id = $user_id;
-        $eventAttentant->save();
 
-        $event_date_to_compare = Carbon::parse($dateStart)->format('Y-m-d');
+
+
+//        $event_date_to_compare = Carbon::parse($dateStart)->format('Y-m-d');
 //        ----
-        $entrySlug = Entry::where('title', $event_slug)->whereDate('start', '=', $event_date_to_compare)->first();
+        $entrySlug = $slug ?: null;
         if(!$entrySlug){
             $entry = new Entry();
-            $entry->title = $event_name;
-            $entry->slug = $event_slug;
-            $entry->start = $event_start;
-            $entry->end = $event_end;
-            $entry->all_day = false;
-            $entry->identifier = $project_organised;
-            $entry->url = $website;
-            $entry->place = $venue;
-            $entry->show_on_timeline = false;
-            $entry->is_internal = $is_internal;
-            $entry->description = '';
-            $entry->save();
+        }else{
+            $entry = Entry::where('slug', $entrySlug)->first();
         }
+
+        $entry->title = $event_name;
+        $entry->slug = $event_slug;
+        $entry->start = $event_start;
+        $entry->end = $event_end;
+        $entry->all_day = false;
+        $entry->identifier = $project_organised;
+        $entry->url = $website;
+        $entry->place = $venue;
+        $entry->show_on_timeline = false;
+        $entry->is_internal = $is_internal;
+        $entry->description = '';
+        $entry->save();
+
+        $eventAttentant = EventsreportingAttendants::where('event_id', $entry->id)->first();
+        if(!$eventAttentant){
+            $eventAttentant = new EventsreportingAttendants();
+        }
+        $eventAttentant->event_id = $entry->id;
+        $eventAttentant->user_id = $user_id;
+        $eventAttentant->save();
 
         Flash::success('Thank you!');
         return \Redirect::to('/event-attendance-planner-success');
