@@ -39,3 +39,5 @@
     - 'Attendant event id relation'
 1.0.17:
     - 'Edit event, event date and time'
+1.0.18:
+    - 'Order dropdown'

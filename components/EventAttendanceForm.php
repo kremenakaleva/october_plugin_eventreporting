@@ -38,7 +38,7 @@ class EventAttendanceForm extends ComponentBase
         if($user){
             $theme = Theme::getActiveTheme();
             $this->page['user'] = $user;
-            $this->page['events'] = Entry::orderBy('title')->orderBy('created_at', 'DESC')->get();
+            $this->page['events'] = Entry::orderBy('start', 'DESC')->get();
         }else{
             return Redirect::to('/');
         }

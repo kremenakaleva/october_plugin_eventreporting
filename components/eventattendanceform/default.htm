@@ -21,7 +21,7 @@
                         <select name="event_id">
                             <option value="">-- Choose event --</option>
                             {% for event in events %}
-                                <option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.title}}</option>
+                                <option value="{{event.id}}" {% if event.id == id %}selected{% endif %}>{{event.title}} ({{event.start|date('d M Y')}})</option>
                             {% endfor %}
                         </select>
                     </div>
