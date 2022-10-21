@@ -41,3 +41,5 @@
     - 'Edit event, event date and time'
 1.0.18:
     - 'Order dropdown'
+1.0.19:
+    - 'Event identifiers 1-organised, 2-involved, 3-relevant'

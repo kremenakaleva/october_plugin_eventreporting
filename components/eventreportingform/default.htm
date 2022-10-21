@@ -68,12 +68,13 @@
 
                 <div class="col-xs-12 col-md-6">
 
-                            <div class="inputLabel">{{project_name}} organised or relevant <span class="red">*</span></div>
+                            <div class="inputLabel">{{project_name}} organised/involved/relevant <span class="red">*</span></div>
                             <div class="field">
                                 <select name="project_organised">
                                     <option value="">-- Choose --</option>
                                     <option value="1" {% if event.identifier == 1 %} selected {% endif %}>{{project_name}} organised</option>
-                                    <option value="2" {% if event.identifier == 2 %} selected {% endif %}>{{project_name}} relevant</option>
+                                    <option value="2" {% if event.identifier == 2 %} selected {% endif %}>{{project_name}} involved</option>
+                                    <option value="3" {% if event.identifier == 3 %} selected {% endif %}>{{project_name}} relevant</option>
                                 </select>
                             </div>
 
