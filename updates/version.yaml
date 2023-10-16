@@ -45,3 +45,5 @@
     - 'Event identifiers 1-organised, 2-involved, 3-relevant'
 1.0.20:
     - 'Attendats fix'
+1.0.21:
+    - 'Removed partner variable'

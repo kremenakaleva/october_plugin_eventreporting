@@ -12,7 +12,6 @@ use October\Rain\Support\Facades\Flash;
 use Pensoft\Calendar\Models\Entry;
 use Pensoft\EventReporting\Models\EventsreportingAttendants;
 use Pensoft\EventReporting\Models\EventsreportingData;
-use Pensoft\Partners\Models\Partners;
 
 /**
  * EventReportingForm Component
@@ -40,10 +39,9 @@ class EventReportingForm extends ComponentBase
         $user = Auth::getUser();
         if($user){
             $theme = Theme::getActiveTheme();
-            $partner = Partners::where('id', $user->partner_id)->first();
             $this->page['user'] = $user;
             $this->page['project_name'] = $theme->site_name;
-            $this->page['partner'] = $partner->instituion;
+
         }else{
             return Redirect::to('/');
         }
